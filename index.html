@@ -3,22 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Parent HTML</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .keyboard {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .key {
+            width: 50px;
+            height: 50px;
+            background-color: #ddd;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 20px;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .key:active, .key.active {
+            background-color: #aaa;
+        }
+    </style>
 </head>
 <body>
+    <div class="keyboard">
+        <button class="key" data-key="w">W</button>
+        <button class="key" data-key="a">A</button>
+        <button class="key" data-key="s">S</button>
+        <button class="key" data-key="d">D</button>
+    </div>
     <iframe id="child-frame" src="fight.html" width="800" height="600"></iframe>
-    <button id="show-keyboard-button">Show Keyboard in Child</button>
-
     <script>
-        document.getElementById('show-keyboard-button').addEventListener('click', function() {
-            var iframe = document.getElementById('child-frame');
-            // 向子HTML发送消息，请求显示键盘
-            iframe.contentWindow.postMessage('showKeyboard', '*');
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframe = document.getElementById('child-frame');
+            const keys = document.querySelectorAll('.key');
 
-        // 接收来自子HTML发送的消息
-        window.addEventListener('message', function(event) {
-            // 在控制台输出来自子HTML的消息
-            console.log('Parent received message:', event.data);
+            keys.forEach(key => {
+                key.addEventListener('click', function() {
+                    const keyValue = key.getAttribute('data-key');
+                    iframe.contentWindow.postMessage(keyValue, '*');
+                });
+            });
         });
     </script>
 </body>
