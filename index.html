@@ -7,6 +7,13 @@
 </head>
 <body>
 <iframe src="fight.html" width="600" height="400"></iframe>
+<button id="show-keyboard-button">Show Keyboard</button>
+  <input type="text" id="hidden-input">
 
+  <script>
+    document.getElementById('show-keyboard-button').addEventListener('click', function() {
+      var hiddenInput = document.getElementById('hidden-input');
+      hiddenInput.focus();  // 将焦点设置到隐藏的输入框上
+    });</script>
 </body>
 </html>
