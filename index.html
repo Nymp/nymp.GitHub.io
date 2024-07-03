@@ -2,23 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<!--    <meta http-equiv="refresh" content="0;url=https://www.hfnu.edu.cn">-->
-<!--    <title>合肥原神师范学院</title>-->
+    <title>Parent HTML</title>
 </head>
 <body>
-<iframe src="fight.html" width="600" height="400"></iframe>
-<button id="show-keyboard-button">Show Keyboard</button>
-  <input type="text" id="hidden-input">
+    <iframe id="child-frame" src="fight.html" width="800" height="600"></iframe>
+    <button id="show-keyboard-button">Show Keyboard in Child</button>
 
-  <input type="text" id="hidden-input">
+    <script>
+        document.getElementById('show-keyboard-button').addEventListener('click', function() {
+            var iframe = document.getElementById('child-frame');
+            // 向子HTML发送消息，请求显示键盘
+            iframe.contentWindow.postMessage('showKeyboard', '*');
+        });
 
-  <script>
-    window.addEventListener('message', function(event) {
-      if (event.data === 'showKeyboard') {
-        var hiddenInput = document.getElementById('hidden-input');
-        hiddenInput.focus(); // 将焦点设置到隐藏的输入框上
-      }
-    });
-  </script>
+        // 接收来自子HTML发送的消息
+        window.addEventListener('message', function(event) {
+            // 在控制台输出来自子HTML的消息
+            console.log('Parent received message:', event.data);
+        });
+    </script>
 </body>
 </html>
