@@ -39,25 +39,8 @@
     </style>
 </head>
 <body>
-    <div class="keyboard">
-        <button class="key" data-key="w">W</button>
-        <button class="key" data-key="a">A</button>
-        <button class="key" data-key="s">S</button>
-        <button class="key" data-key="d">D</button>
-    </div>
-    <iframe id="child-frame" src="fight.html" width="800" height="600"></iframe>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const iframe = document.getElementById('child-frame');
-            const keys = document.querySelectorAll('.key');
 
-            keys.forEach(key => {
-                key.addEventListener('click', function() {
-                    const keyValue = key.getAttribute('data-key');
-                    iframe.contentWindow.postMessage(keyValue, '*');
-                });
-            });
-        });
-    </script>
+    <iframe id="child-frame" src="fight.html" width="1000" height="600"></iframe>
+
 </body>
 </html>
